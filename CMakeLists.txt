@@ -3,5 +3,10 @@ project(PrayFoundation)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp)
-add_executable(PrayFoundation ${SOURCE_FILES})
+include_directories(Classes)
+
+file(GLOB_RECURSE SRCS  Classes/*.cpp)
+file(GLOB_RECURSE HDRS  Classes/*.h)
+file(GLOB_RECURSE CSRCS Classes/*.c)
+
+add_executable(PrayFoundation ${SRCS} ${HDRS} ${CSRCS})
