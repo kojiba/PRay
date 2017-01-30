@@ -27,18 +27,18 @@ public:
 int main() {
     var foundation = RayFoundation();
 
-    var array = Array();
+    var array = new Array();
 
     var string = new String("some");
 
-    array.append(string);
+    array->append(string);
 
     var second = new String("Second");
-    array.append(second);
+    array->append(second);
 
-    array.print();
+    array->print();
 
-    array.release();
+    array->release();
 
     return 0;
 }

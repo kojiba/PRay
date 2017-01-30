@@ -30,26 +30,23 @@ namespace ray {
 
     protected:
         void dealloc() override {
-            RPrintf("C++ String destructor %p\n", this);
-
             if (!isConst && !isWeak) {
                 deleter(implementation, RString);
             }
             if (isWeak) {
                 deallocator(implementation);
             }
+            Object::dealloc();
         }
 
     public:
         String() : Object() {
-            RPrintf("C++ String constructor\n");
             implementation = (RString *) RS("");
             isConst = yes;
             isWeak = no;
         }
 
         String(char *string) : Object() {
-            RPrintf("C++ String constructor 2 %p\n", this);
             implementation = $((RString *) allocator(RData), m(setConstantString, RString)), string);
             isConst = no;
             isWeak = yes;

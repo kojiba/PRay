@@ -15,11 +15,11 @@ namespace ray {
     protected:
         void dealloc() override {
             deleter(implementation, RArray);
+            Object::dealloc();
         }
 
     public:
         Array() {
-            RPrintf("C++ Array constructor %p\n", this);
             implementation = c(RArray)((RArray *) nil, (RArrayFlags *) nil);
             implementation->printerDelegate = (PrinterDelegate) Object::Printer;
             implementation->destructorDelegate = (DestructorDelegate) Object::Deleter;

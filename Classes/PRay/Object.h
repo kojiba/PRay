@@ -28,18 +28,15 @@ namespace ray {
         size_t referenceCount;
 
         virtual void dealloc() {
-            printf("Dealloc for %p\n", this);
             delete this;
         }
 
     public:
         Object() {
             referenceCount = 0;
-            RPrintf("C++ Object constructor %p\n", this);
         }
 
         virtual ~Object() {
-            RPrintf("C++ Object destructor %p\n", this);
         }
 
         virtual void print() {
