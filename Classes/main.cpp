@@ -1,13 +1,18 @@
 #include <iostream>
 #include "RayFoundation/RayFoundation.h"
+#include <PRay/Array.h>
 
-printer(RArray);
+using namespace ray;
 
 int main() {
-    RArray *array = constructorOfRArray((RArray*)nil, (RArrayFlags*)nil);
-    addObjectRArray(array, (pointer) 1);
-    printerOfRArray(array);
-    deleter(array, RArray);
-    std::cout << "https://github.com/kojiba/PRay" << std::endl;
+    var foundation = RayFoundation();
+
+    var array = Array();
+
+    var string = String("some");
+
+    array.append(string);
+    array.print();
+
     return 0;
 }
