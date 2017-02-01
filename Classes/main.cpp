@@ -32,6 +32,7 @@ int main() {
 
     (*array).append(new String("some"));
     (*array).append(new String("fix email"));
+    (*array).append(new String("fix email 2"));
 
     var second = new String("Second");
 
