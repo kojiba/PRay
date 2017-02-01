@@ -31,6 +31,7 @@ int main() {
     var array = Value<Array>();
 
     (*array).append(new String("some"));
+    (*array).append(new String("fix email"));
 
     var second = new String("Second");
 
