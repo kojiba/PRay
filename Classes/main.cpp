@@ -6,6 +6,7 @@
 using namespace ray;
 
 #define var auto
+#define let const var
 
 class RayFoundation {
 public:
@@ -27,18 +28,18 @@ public:
 int main() {
     var foundation = RayFoundation();
 
-    var array = new Array();
+    var array = Value<Array>();
 
-    var string = new String("some");
-
-    array->append(string);
+    (*array).append(new String("some"));
 
     var second = new String("Second");
-    array->append(second);
 
-    array->print();
+    (*array).append(second);
+    (*array).print();
 
-    array->release();
+    (*array).remove(second);
+    (*array).print();
+
 
     return 0;
 }

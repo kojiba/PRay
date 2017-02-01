@@ -1,6 +1,16 @@
-//
-// Created by kojiba on 26.01.17.
-//
+/**
+ * Object.h
+ * Author Kucheruavyu Ilya (kojiba@ro.ru)
+ * 26.01.17 Ukraine Kharkiv
+ *  _         _ _ _
+ * | |       (_|_) |
+ * | | _____  _ _| |__   __ _
+ * | |/ / _ \| | | '_ \ / _` |
+ * |   < (_) | | | |_) | (_| |
+ * |_|\_\___/| |_|_.__/ \__,_|
+ *          _/ |
+ *         |__/
+ **/
 
 #ifndef __PRAYFOUNDATION_ARRAY_H__
 #define __PRAYFOUNDATION_ARRAY_H__
@@ -14,7 +24,9 @@ namespace ray {
 
     protected:
         void dealloc() override {
+//            printf("dealloc array %p\n", this);
             deleter(implementation, RArray);
+            implementation = (RArray*)nil;
             Object::dealloc();
         }
 
@@ -25,24 +37,28 @@ namespace ray {
             implementation->destructorDelegate = (DestructorDelegate) Object::Deleter;
         }
 
-        ~Array() {
-            RPrintf("C++ Array destructor %p\n", this);
+        virtual ~Array() {
+//            printf("delete array %p\n", this);
         }
 
         void print() override {
+            printShortRArray(implementation);
+            printf("\n");
+        }
+
+        virtual void rayPrint() override {
+            printf("ray::Array ");
+            Object::rayPrint();
             p(RArray)(implementation);
         }
 
         void append(Object *object) {
             object->retain();
-            printf("add object %p\n", object);
             addObjectRArray(implementation, object);
         }
 
-        void append(Object &object) {
-            object.retain();
-            printf("add object %p\n", &object);
-            addObjectRArray(implementation, &object);
+        void remove(Object* object) {
+            deleteObjectRArray(implementation, object);
         }
 
         void useAutoCount() {

@@ -1,7 +1,3 @@
-//
-// Created by kojiba on 30.01.17.
-//
-
 /**
  * Object.h
  * Author Kucheruavyu Ilya (kojiba@ro.ru)
@@ -37,10 +33,15 @@ namespace ray {
         }
 
         virtual ~Object() {
+//            printf("delete object %p\n", this);
         }
 
         virtual void print() {
 
+        }
+
+        virtual void rayPrint() {
+            printf("%p\n", this);
         }
 
         void retain() {
@@ -64,6 +65,24 @@ namespace ray {
 
         static void Printer(Object *object) {
             object->print();
+        }
+    };
+
+    template <typename Type> class Value {
+        Type *innerValue;
+    public:
+
+        Value() {
+            innerValue = new Type();
+        }
+
+        Type& operator*() {
+            return *innerValue;
+        }
+
+        ~Value() {
+//            printf("delete value %p\n", this);
+            innerValue->release();
         }
     };
 }

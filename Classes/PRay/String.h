@@ -1,7 +1,3 @@
-//
-// Created by kojiba on 30.01.17.
-//
-
 /**
  * String.h
  * Author Kucheruavyu Ilya (kojiba@ro.ru)
@@ -46,18 +42,18 @@ namespace ray {
             isWeak = no;
         }
 
-        String(char *string) : Object() {
+        String(const char *string) : Object() {
             implementation = $((RString *) allocator(RData), m(setConstantString, RString)), string);
             isConst = no;
             isWeak = yes;
         }
 
-        ~String() {
-
+        virtual ~String() {
+//            printf("delete string %p\n", this);
         }
 
         void print() override {
-            p(RString)(implementation);
+            printInFileRData(implementation, stdout, no);
         }
     };
 };

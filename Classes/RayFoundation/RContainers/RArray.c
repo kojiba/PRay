@@ -135,6 +135,22 @@ printer(RArray) {
     RMutexUnlockArray();
 }
 
+method(void, printShort, RArray)) {
+    size_t iterator;
+    RPrintf("[");
+    if (object->printerDelegate != nil) {
+        RMutexLockArray();
+        forAll(iterator, object->count) {
+            object->printerDelegate(object->array[iterator]);
+            if (iterator != object->count - 1) {
+                RPrintf(", ");
+            }
+        }
+        RMutexUnlockArray();
+    }
+    RPrintf("]");
+}
+
 #pragma mark Allocation - Reallocation
 
 method(RArrayFlags, addSize, RArray), size_t newSize) {

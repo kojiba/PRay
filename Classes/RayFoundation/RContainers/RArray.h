@@ -105,6 +105,8 @@ destructor  (RArray);
  */
 printer     (RArray);
 
+method(void, printShort, RArray));
+
 #pragma mark Allocation - Reallocation
 
 /**
