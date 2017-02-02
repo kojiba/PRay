@@ -41,7 +41,7 @@ namespace ray {
         }
 
         virtual void rayPrint() {
-            printf("%p\n", this);
+            printf("%p, refcount - %u\n", this, referenceCount);
         }
 
         void retain() {

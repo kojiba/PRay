@@ -24,17 +24,6 @@ namespace ray {
         rbool isConst;
         rbool isWeak;
 
-    protected:
-        void dealloc() override {
-            if (!isConst && !isWeak) {
-                deleter(implementation, RString);
-            }
-            if (isWeak) {
-                deallocator(implementation);
-            }
-            Object::dealloc();
-        }
-
     public:
         String() : Object() {
             implementation = (RString *) RS("");
@@ -49,7 +38,12 @@ namespace ray {
         }
 
         virtual ~String() {
-//            printf("delete string %p\n", this);
+            if (!isConst && !isWeak) {
+                deleter(implementation, RString);
+            }
+            if (isWeak) {
+                deallocator(implementation);
+            }
         }
 
         void print() override {

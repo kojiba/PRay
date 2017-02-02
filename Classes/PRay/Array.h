@@ -22,14 +22,6 @@ namespace ray {
     class Array: public Object {
         RArray *implementation;
 
-    protected:
-        void dealloc() override {
-//            printf("dealloc array %p\n", this);
-            deleter(implementation, RArray);
-            implementation = (RArray*)nil;
-            Object::dealloc();
-        }
-
     public:
         Array() {
             implementation = c(RArray)((RArray *) nil, (RArrayFlags *) nil);
@@ -38,7 +30,8 @@ namespace ray {
         }
 
         virtual ~Array() {
-//            printf("delete array %p\n", this);
+            deleter(implementation, RArray);
+            implementation = (RArray*)nil;
         }
 
         void print() override {

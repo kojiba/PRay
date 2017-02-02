@@ -29,8 +29,9 @@ int main() {
     var foundation = RayFoundation();
 
     var array = Value<Array>();
+    let someConst = new String("some");
 
-    (*array).append(new String("some"));
+    (*array).append(someConst);
     (*array).append(new String("fix email"));
     (*array).append(new String("fix email 2"));
 
@@ -41,6 +42,11 @@ int main() {
 
     (*array).remove(second);
     (*array).print();
+
+    var newArray = Value<Array>();
+    (*newArray).append(someConst);
+
+    someConst->rayPrint(); // refcount 2
 
 
     return 0;
