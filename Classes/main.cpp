@@ -45,8 +45,11 @@ int main() {
 
     var newArray = Value<Array>();
     (*newArray).append(someConst);
+    (*newArray).append(someConst);
+    (*newArray).append(someConst);
 
     someConst->rayPrint(); // refcount 2
+    printf("count %u\n", (*newArray).count());
 
 
     return 0;

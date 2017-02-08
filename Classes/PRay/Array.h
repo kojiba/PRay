@@ -29,9 +29,21 @@ namespace ray {
             implementation->destructorDelegate = (DestructorDelegate) Object::Deleter;
         }
 
+        Array(RArray *array) {
+            implementation = array;
+        }
+
         virtual ~Array() {
             deleter(implementation, RArray);
             implementation = (RArray*)nil;
+        }
+
+        size_t count() {
+            return implementation->count;
+        }
+
+        bool isEmpty() {
+            return implementation->count > 0;
         }
 
         void print() override {
@@ -45,6 +57,10 @@ namespace ray {
             p(RArray)(implementation);
         }
 
+        size_t indexOf(Object *object) {
+            return indexOfObjectRArray(implementation, object);
+        }
+
         void append(Object *object) {
             object->retain();
             addObjectRArray(implementation, object);
@@ -52,6 +68,26 @@ namespace ray {
 
         void remove(Object* object) {
             deleteObjectRArray(implementation, object);
+        }
+
+        void removeFast(Object* object) {
+            deleteObjectFastRArray(implementation, object);
+        }
+
+        void remove(size_t index) {
+            deleteObjectAtIndexRArray(implementation, index);
+        }
+
+        void removeFast(size_t index) {
+            deleteObjectAtIndexFastRArray(implementation, index);
+        }
+
+        void remove(RRange range) {
+            deleteObjectsRArray(implementation, range);
+        }
+
+        Array array(RRange range) {
+            return Array(getSubarrayRArray(implementation, range));
         }
 
         void useAutoCount() {

@@ -44,11 +44,11 @@ namespace ray {
             printf("%p, refcount - %u\n", this, referenceCount);
         }
 
-        void retain() {
+        virtual void retain() {
             ++referenceCount;
         }
 
-        void release() {
+        virtual void release() {
             if (referenceCount > 0) {
                 --referenceCount;
                 if (referenceCount == 0) {
@@ -68,7 +68,7 @@ namespace ray {
         }
     };
 
-    template <typename Type> class Value {
+    template <typename Type> class Value: public Object {
         Type *innerValue;
     public:
 
@@ -81,7 +81,22 @@ namespace ray {
         }
 
         ~Value() {
-//            printf("delete value %p\n", this);
+            innerValue->release();
+        }
+
+        void print() override {
+            innerValue->print();
+        }
+
+        void rayPrint() override {
+            innerValue->rayPrint();
+        }
+
+        void retain() override {
+            innerValue->retain();
+        }
+
+        void release() override {
             innerValue->release();
         }
     };
